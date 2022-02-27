@@ -32,7 +32,6 @@ def number_accidents_by_locations(data):
 
 
 def select_time(data):
-    st.header("How many collisions occur during a given time of day?")
     hour = st.slider("Hour", 0, 23, 1)
     data = data[data['date/time'].dt.hour == hour]
     h1_am_pm = 'AM' if hour < 12 else 'PM'
@@ -82,7 +81,14 @@ def accidents_by_minute(data, h1_am_pm, h2_am_pm, start, end, hour):
     ]
     hist = np.histogram(filtered_data['date/time'].dt.minute, bins=60, range=(0,60))[0]
     chart_data = pd.DataFrame({'minute': range(60), 'crashes': hist})
-    fig = px.bar(chart_data, x="minute", y="crashes", hover_data=['minute', 'crashes'], height=400)
+    fig = px.bar(chart_data, x="minute", y="crashes", hover_data=['minute', 'crashes'], height=400, color_discrete_sequence=['indianred'])
+    st.write(fig)
+
+
+def accidents_by_hour(data):
+    hist = np.histogram(data['date/time'].dt.hour, bins=24, range=(0,24))[0]
+    chart_data = pd.DataFrame({'hour': range(24), 'crashes': hist})
+    fig = px.bar(chart_data, x="hour", y="crashes", hover_data=['hour', 'crashes'], height=400, color_discrete_sequence=['indianred'])
     st.write(fig)
 
 
@@ -99,7 +105,6 @@ def top_5_dangerous_streets(data):
 
 
 def show_data(data, key):
-     # show date filtered data
     if st.checkbox("Show Raw Data", False, key=key):
         st.subheader("Raw data")
         st.write(data)
@@ -117,8 +122,9 @@ def main():
 
     original_data = data
 
+    st.header("How many crashes occur during a given time of day?")
+    accidents_by_hour(original_data)
     data, h1_am_pm, h2_am_pm, start, end, hour= select_time(data)
-
     st.markdown("Number of vehicle collisions between %i:00 %s and %i:00 %s: %i" % (start, h1_am_pm, end, h2_am_pm, data.shape[0]))    # Initialize 3D graph
     map_3d(data)
     accidents_by_minute(data, h1_am_pm, h2_am_pm, start, end, hour)
