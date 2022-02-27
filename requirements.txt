@@ -85,7 +85,6 @@ six==1.16.0
 smmap==5.0.0
 stack-data==0.1.4
 streamlit==1.6.0
-tenacity @ file:///tmp/build/80754af9/tenacity_1632756856731/work
 terminado==0.13.1
 testpath==0.5.0
 toml==0.10.2
@@ -101,5 +100,4 @@ validators==0.18.2
 watchdog==2.1.6
 wcwidth==0.2.5
 webencodings==0.5.1
-widgetsnbextension==3.5.2
-zipp==3.7.0
+widgetsnbextension==3.5
