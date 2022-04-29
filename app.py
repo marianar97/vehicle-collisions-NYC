@@ -114,10 +114,9 @@ def main():
 
     # title
     st.title("Vehicle Collisions in NYC")
-    st.markdown("This web app helps you analyze Motor Vehicle Collisions in NYC 🗽💥🚗. ")
+    st.markdown("This web app helps you analyze Motor Vehicle Collisions in NYC🗽💥🚗. \n")
 
     data = load_data()
-
     number_accidents_by_locations(data)
 
     original_data = data
